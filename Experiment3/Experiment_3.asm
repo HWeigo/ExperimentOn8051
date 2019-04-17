@@ -48,11 +48,11 @@ CLEAR:		MOV TMOD,#01H 		;t0使用模式1定时器
 
 STOP:		CLR ET0
 			LJMP LOOP
-			RET
+			;RET
 
 START:		SETB ET0
 			LJMP LOOP
-			RET
+			;RET
 
 			
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
