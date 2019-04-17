@@ -1,0 +1,154 @@
+A51 MACRO ASSEMBLER  EXPERIMENT_22                                                        04/17/2019 20:46:31 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.01
+OBJECT MODULE PLACED IN Experiment_22.OBJ
+ASSEMBLER INVOKED BY: D:\Microcontrollers\Keil\C51\BIN\A51.EXE Experiment_22.asm SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+                       1                             
+0000                   2                         ORG 0H
+0000 0160              3                             AJMP MAIN               
+000B                   4                             ORG 000BH
+000B 017D              5                             AJMP TINT0
+                       6     
+0060                   7                             ORG  60H
+0060                   8     MAIN:           
+                       9                             ;³õÊ¼»¯
+0060 753000           10                             MOV     30H,#0H
+0063 753100           11                             MOV 31H,#0H
+0066 753200           12                             MOV     32H,#0H
+0069 753300           13                             MOV 33H,#0H
+                      14     
+                      15                             ;¶¨Ê±Æ÷ÖÐ¶ÏÊ¹ÄÜ
+006C 758901           16                             MOV TMOD,#01H           ;t0Ê¹ÓÃÄ£Ê½1¶¨Ê±Æ÷
+006F 758CFF           17                             MOV TH0,#0FFH                   ;ÉèÖÃ¶¨Ê±50ms
+0072 758A00           18                             MOV TL0,#0H
+0075 D2A9             19                             SETB ET0                        ;t1ÔÊÐíÖÐ¶Ï
+0077 D28C             20                             SETB TR0                        ;Æô¶¯¶¨Ê±
+                      21                             
+                      22                             
+0079                  23     LOOP:           ;ÊÂë¹ÜÏÔÊ¾
+0079 11A6             24                             ACALL DISPLAY
+                      25     
+007B 80FC             26                             SJMP LOOP
+                      27     
+                      28     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                      29     ;¶¨Ê±INC¼Ä´æÆ÷
+                      30                             
+007D 0530             31     TINT0:          INC 30H
+007F 0531             32                             INC 31H
+0081 0532             33                             INC 32H
+0083 0533             34                             INC 33H
+                      35                             
+                      36                             ;¼ì²éÊÇ·ñÒç³ö£¬ÈôÒç³öÖØÐÂ¸³Öµ£¬·ñÔòÌø¹
+0085 E530             37                             MOV A,30H
+0087 B41003           38                             CJNE A,#10H,NEXT_INC0
+008A 753000           39                             MOV 30H,#0H
+008D E531             40     NEXT_INC0:      MOV A,31H
+008F B41003           41                             CJNE A,#10H,NEXT_INC1
+0092 753100           42                             MOV 31H,#0H
+0095 E532             43     NEXT_INC1:      MOV A,32H
+0097 B41003           44                             CJNE A,#10H,NEXT_INC2
+009A 753200           45                             MOV 32H,#0H
+009D E533             46     NEXT_INC2:      MOV A,33H
+009F B41003           47                             CJNE A,#10H,NEXT_INC3
+00A2 753300           48                             MOV 33H,#0H
+00A5                  49     NEXT_INC3:                      
+00A5 32               50                             RETI
+                      51     
+                      52                             
+                      53     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;                   
+00A6                  54     DISPLAY:        ;µÚÒ»¸öÊÂë¹Ü
+00A6 9000E9           55                             MOV     DPTR,#DSEG1
+00A9 E530             56                             MOV  A,30H
+00AB 93               57                             MOVC    A,@A+DPTR
+00AC 907FF0           58                             MOV     DPTR,#7FF0H                          
+A51 MACRO ASSEMBLER  EXPERIMENT_22                                                        04/17/2019 20:46:31 PAGE     2
+
+00AF F0               59                             MOVX    @DPTR,A
+                      60                             
+00B0 11D7             61                             ACALL DELAY_SHORT
+                      62     
+                      63                             ;µÚ¶þ¸öÊÂë¹Ü
+00B2 9000E9           64                             MOV     DPTR,#DSEG1
+00B5 E531             65                             MOV A,31H
+00B7 93               66                             MOVC    A,@A+DPTR
+00B8 907FF1           67                             MOV     DPTR,#7FF1H                          
+00BB F0               68                             MOVX    @DPTR,A
+                      69     
+00BC 11D7             70                             ACALL DELAY_SHORT
+                      71     
+                      72                             ;µÚÈ¸öÊÂë¹Ü
+00BE 9000E9           73                             MOV     DPTR,#DSEG1
+00C1 E532             74                             MOV A,32H
+00C3 93               75                             MOVC    A,@A+DPTR
+00C4 907FF2           76                             MOV     DPTR,#7FF2H                          
+00C7 F0               77                             MOVX    @DPTR,A
+                      78     
+00C8 11D7             79                             ACALL DELAY_SHORT
+                      80     
+                      81                             ;µÚËÄ¸öÊÂë¹Ü
+00CA 9000E9           82                             MOV     DPTR,#DSEG1
+00CD E533             83                             MOV A,33H
+00CF 93               84                             MOVC    A,@A+DPTR
+00D0 907FF3           85                             MOV     DPTR,#7FF3H                          
+00D3 F0               86                             MOVX    @DPTR,A
+                      87     
+00D4 11D7             88                             ACALL DELAY_SHORT
+                      89     
+00D6 22               90                             RET
+                      91     
+00D7                  92     DELAY_SHORT:                   
+00D7 7F0A             93                MOV R7,#10
+00D9 7EFA             94     DEL_SHORT: MOV R6,#250
+00DB DEFE             95                DJNZ R6,$
+00DD DFFA             96                DJNZ R7,DEL_SHORT
+00DF 22               97                RET
+                      98     
+00E0                  99     DELAY_LONG:                   
+00E0 7FFA            100                MOV R7,#250
+00E2 7EFA            101     DEL_LONG:  MOV R6,#250
+00E4 DEFE            102                DJNZ R6,$
+00E6 DFFA            103                DJNZ R7,DEL_LONG
+00E8 22              104                RET
+                     105     
+00E9 C0F9A4B0        106     DSEG1:    DB 0C0H,0F9H,0A4H,0B0H                        
+00ED 999282F8        107               DB 99H,92H,82H,0F8H
+00F1 80908883        108               DB 80H,90H,88H,83H
+00F5 C6A1868E        109               DB 0C6H,0A1H,86H,8EH
+                     110     
+                     111               END                  
+A51 MACRO ASSEMBLER  EXPERIMENT_22                                                        04/17/2019 20:46:31 PAGE     3
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+DELAY_LONG . . . .  C ADDR   00E0H   A   
+DELAY_SHORT. . . .  C ADDR   00D7H   A   
+DEL_LONG . . . . .  C ADDR   00E2H   A   
+DEL_SHORT. . . . .  C ADDR   00D9H   A   
+DISPLAY. . . . . .  C ADDR   00A6H   A   
+DSEG1. . . . . . .  C ADDR   00E9H   A   
+ET0. . . . . . . .  B ADDR   00A8H.1 A   
+LOOP . . . . . . .  C ADDR   0079H   A   
+MAIN . . . . . . .  C ADDR   0060H   A   
+NEXT_INC0. . . . .  C ADDR   008DH   A   
+NEXT_INC1. . . . .  C ADDR   0095H   A   
+NEXT_INC2. . . . .  C ADDR   009DH   A   
+NEXT_INC3. . . . .  C ADDR   00A5H   A   
+TH0. . . . . . . .  D ADDR   008CH   A   
+TINT0. . . . . . .  C ADDR   007DH   A   
+TL0. . . . . . . .  D ADDR   008AH   A   
+TMOD . . . . . . .  D ADDR   0089H   A   
+TR0. . . . . . . .  B ADDR   0088H.4 A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)
