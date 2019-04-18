@@ -160,20 +160,48 @@
       <FileType>2</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>0</ColumnNumber>
+      <ColumnNumber>34</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>1</TopLine>
-      <CurrentLine>1</CurrentLine>
+      <TopLine>19</TopLine>
+      <CurrentLine>52</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\Experiment_3.asm</PathWithFileName>
       <FilenameWithoutPath>Experiment_3.asm</FilenameWithoutPath>
     </File>
+    <File>
+      <GroupNumber>1</GroupNumber>
+      <FileNumber>0</FileNumber>
+      <FileType>2</FileType>
+      <tvExp>0</tvExp>
+      <Focus>0</Focus>
+      <ColumnNumber>74</ColumnNumber>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <TopLine>1</TopLine>
+      <CurrentLine>33</CurrentLine>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\Experiment2\Experiment_23.asm</PathWithFileName>
+      <FilenameWithoutPath>Experiment_23.asm</FilenameWithoutPath>
+    </File>
+    <File>
+      <GroupNumber>1</GroupNumber>
+      <FileNumber>0</FileNumber>
+      <FileType>2</FileType>
+      <tvExp>0</tvExp>
+      <Focus>0</Focus>
+      <ColumnNumber>0</ColumnNumber>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <TopLine>25</TopLine>
+      <CurrentLine>43</CurrentLine>
+      <bDave2>0</bDave2>
+      <PathWithFileName>.\experiment_3withComments.asm</PathWithFileName>
+      <FilenameWithoutPath>experiment_3withComments.asm</FilenameWithoutPath>
+    </File>
   </Group>
 
   <AlienFiles>
-    <PathWithFilename>D:\必修课\机电系统\ExperimentOn8051\Experiment3\experiment_32NEW.asm</PathWithFilename>
-    <TopLine>25</TopLine>
-    <CurrentLine>25</CurrentLine>
+    <PathWithFilename>D:\必修课\机电系统\ExperimentOn8051\Experiment3\experiment_3forReport.asm</PathWithFilename>
+    <TopLine>1</TopLine>
+    <CurrentLine>7</CurrentLine>
     <Constant>0</Constant>
     <WindowPosition>
       <length>0</length>
@@ -1537,19 +1565,25 @@
     <ActiveMDIGroup>0</ActiveMDIGroup>
     <MDIGroup>
       <Size>100</Size>
-      <ActiveTab>1</ActiveTab>
+      <ActiveTab>0</ActiveTab>
       <Documents>
         <Doc>
-          <Name>.\Experiment_3.asm</Name>
-          <ColumnNumber>0</ColumnNumber>
+          <Name>D:\必修课\机电系统\ExperimentOn8051\Experiment3\experiment_3forReport.asm</Name>
+          <ColumnNumber>32</ColumnNumber>
           <TopLine>1</TopLine>
-          <CurrentLine>1</CurrentLine>
+          <CurrentLine>7</CurrentLine>
         </Doc>
         <Doc>
-          <Name>D:\必修课\机电系统\ExperimentOn8051\Experiment3\experiment_32NEW.asm</Name>
-          <ColumnNumber>65</ColumnNumber>
-          <TopLine>25</TopLine>
-          <CurrentLine>25</CurrentLine>
+          <Name>..\Experiment2\Experiment_23.asm</Name>
+          <ColumnNumber>29</ColumnNumber>
+          <TopLine>1</TopLine>
+          <CurrentLine>31</CurrentLine>
+        </Doc>
+        <Doc>
+          <Name>.\experiment_3withComments.asm</Name>
+          <ColumnNumber>0</ColumnNumber>
+          <TopLine>22</TopLine>
+          <CurrentLine>43</CurrentLine>
         </Doc>
       </Documents>
     </MDIGroup>

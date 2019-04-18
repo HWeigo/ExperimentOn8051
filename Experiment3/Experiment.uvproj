@@ -351,6 +351,16 @@
               <FileType>2</FileType>
               <FilePath>.\Experiment_3.asm</FilePath>
             </File>
+            <File>
+              <FileName>Experiment_23.asm</FileName>
+              <FileType>2</FileType>
+              <FilePath>..\Experiment2\Experiment_23.asm</FilePath>
+            </File>
+            <File>
+              <FileName>experiment_3withComments.asm</FileName>
+              <FileType>2</FileType>
+              <FilePath>.\experiment_3withComments.asm</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>
