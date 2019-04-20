@@ -1,0 +1,164 @@
+A51 MACRO ASSEMBLER  EXPERIMENT_41BYZFY                                                   04/20/2019 21:14:46 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.01
+OBJECT MODULE PLACED IN Experiment_41byZFY.OBJ
+ASSEMBLER INVOKED BY: D:\Microcontrollers\Keil\C51\BIN\A51.EXE Experiment_41byZFY.asm SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1                             ORG 0000H
+0000 2100              2                             AJMP MAIN               
+0003                   3                             ORG 0003H
+0003 4100              4                             AJMP PINT0
+                       5                                             
+0100                   6                             ORG  0100H
+0100                   7     MAIN:           
+                       8                 ;³õÊ¼»¯
+0100 753000            9                             MOV     30H,#0H
+0103 753100           10                             MOV 31H,#0H
+0106 753200           11                             MOV     32H,#0H
+0109 753300           12                             MOV 33H,#0H
+                      13     
+010C 7840             14                             MOV R0,#40H                                              ;ÖÃÊ¾ÝÇøÊ×
+                             µØÖ·
+010E 7A01             15                             MOV R2,#01H                                              ;×Ü²éÑ¯Í¨µ
+                             ÀÊ
+0110 D288             16                             SETB IT0                                                 ;¿ªÖÐ¶Ï   
+                                                                                          ;Ó¦Ê¹ÓÃÖÐ¶ÏÔ´INT0?£¨8090EOC½ÓINT1)
+0112 D2AF             17                             SETB EA
+0114 D2A8             18                             SETB EX0
+                      19                             ;µÚÒ»´Î¿ªÆôAD×ª»»
+0116 90DFF9           20                             MOV DPTR, #0DFF9H                                ;A13=0,²¢Ö¸ÏòIN0Í¨
+                             µÀ                                    ;Ó¦¸ÃÊÇ0DFF8H?(Í¨µÀ0£©
+0119 F0               21                             MOVX @DPTR,A                                     ;Æô¶¯AD×ª»»
+011A                  22     LOOP:
+011A E540             23                 MOV A,40H                                            ;A´æÓÐ8Î»ADCÊä³ö,½ö´¦ÀíÁËÍ
+                             ¨µÀIN0
+011C 75F064           24                             MOV B,#100
+011F 84               25                             DIV AB
+0120 F530             26                             MOV 30H,A
+0122 E5F0             27                             MOV A,B
+0124 75F00A           28                             MOV B,#10
+0127 84               29                             DIV AB
+0128 F531             30                             MOV 31H,A
+012A 85F032           31                             MOV 32H,B
+                      32                                                     
+012D 511B             33                             ACALL DISPLAY                                    ;Ë¢ÐÂÊÂë¹Ü
+012F 80E9             34                             SJMP LOOP                                                ;ËÀÑ­»·£¬µ
+                             È´ÖÐ¶Ï
+                      35     
+0200                  36                             ORG 0200H
+0200                  37     PINT0:          
+0200 C0D0             38                 PUSH PSW
+0202 C0E0             39                 PUSH ACC
+                      40                             ;PUSH R3                          ;²»ÖªµÀÓÐÃ»ÓÐ±ØÒª                
+                                                             £»ÆäËûµØ·½Ã»ÓÃµ½R3   ÇÒ¹¤×÷¼Ä´æÆ÷²»ÄÜ½øÕ» ±àÒëÓÐERROR
+0204 90DFF9           41                             MOV DPTR, #0DFF9H                                ;Ö¸ÏòµÚÒ»Í¨µÀ     
+                                                                            ;Ó¦¸ÃÊÇ0DFF8H?(Í¨µÀ0£©
+0207 E0               42                             MOVX A,@DPTR                                     ;×ª»»½áÊø£¬¶ÁÈë×ª»
+                             »½á¹û
+0208 F6               43                             MOV @R0,A                                                ;´æÈëÄÚ²¿R
+                             AM´æ´¢Çø
+0209 08               44                             INC R0                                                             
+                                                                                                     ;Ã»Ã÷°×
+020A A3               45                             INC DPTR
+020B DA04             46                             DJNZ R2,NEXT
+020D C2A8             47                             CLR EX0                                                            
+A51 MACRO ASSEMBLER  EXPERIMENT_41BYZFY                                                   04/20/2019 21:14:46 PAGE     2
+
+                                                                                                   ;ÎªÊ²Ã´Òª¹Ø±ÕÖÐ¶ÏÊ¹ÄÜ£¿        ÇÒR2Ã»ÓÐÖØÐÂ¸³Öµ
+020F 8005             48                             SJMP DONE
+0211 F0               49     NEXT:       MOVX @DPTR,A                                         ;ÔÙ´ÎÆô¶¯£¬ÒÀ´Î×ª»»ÍêR2¸öÍ
+                             ¨µÀ
+                      50                 ;POP R3
+0212 D0E0             51                 POP ACC
+0214 D0D0             52                             POP PSW
+0216 90DFF9           53     DONE:       MOV DPTR, #0DFF9H                            ;Ö¸ÏòµÚÒ»Í¨µÀ
+0219 F0               54                 MOVX @DPTR,A                                         ;ÔÙ´ÎÆô¶¯£¬ÐÂÒ»ÂÖÎÂ¶ÈË¢ÐÂ
+021A 32               55                 RETI
+                      56     
+                      57     
+                      58     ;***********ÊÂë¹ÜË¢ÐÂ*************;
+021B                  59     DISPLAY:        
+                      60                 ;µÚÒ»Î»
+021B 900255           61                             MOV     DPTR,#DSEG1
+021E E530             62                             MOV  A,30H
+0220 93               63                             MOVC    A,@A+DPTR
+0221 907FF0           64                             MOV     DPTR,#7FF0H                  
+0224 F0               65                             MOVX    @DPTR,A
+                      66                             
+0225 514C             67                             ACALL DELAY_SHORT
+                      68     
+                      69                             ;µÚ¶þÎ»
+0227 900255           70                             MOV     DPTR,#DSEG1
+022A E531             71                             MOV A,31H
+022C 93               72                             MOVC    A,@A+DPTR
+022D 907FF1           73                             MOV     DPTR,#7FF1H                          
+0230 F0               74                             MOVX    @DPTR,A
+                      75     
+0231 514C             76                             ACALL DELAY_SHORT
+                      77     
+                      78                             ;µÚÈÎ»
+0233 900255           79                             MOV     DPTR,#DSEG1
+0236 E532             80                             MOV A,32H
+0238 93               81                             MOVC    A,@A+DPTR
+0239 907FF2           82                             MOV     DPTR,#7FF2H                          
+023C F0               83                             MOVX    @DPTR,A
+                      84     
+023D 514C             85                             ACALL DELAY_SHORT
+                      86     
+                      87                             ;µÚËÄÎ»
+023F 900255           88                             MOV     DPTR,#DSEG1
+0242 E533             89                             MOV A,33H
+0244 93               90                             MOVC    A,@A+DPTR
+0245 907FF3           91                             MOV     DPTR,#7FF3H                          
+0248 F0               92                             MOVX    @DPTR,A
+                      93     
+0249 514C             94                             ACALL DELAY_SHORT
+                      95     
+024B 22               96                             RET
+                      97     
+024C                  98     DELAY_SHORT:                      ;ÑÓ³Ù
+024C 7F0A             99                MOV R7,#10
+024E 7EFA            100     DEL_SHORT: MOV R6,#250
+0250 DEFE            101                DJNZ R6,$
+0252 DFFA            102                DJNZ R7,DEL_SHORT
+0254 22              103                RET
+                     104     
+0255 C0F9A4B0        105     DSEG1:    DB 0C0H,0F9H,0A4H,0B0H  ;¶ÎÂë
+0259 999282F8        106               DB 99H,92H,82H,0F8H
+025D 80908883        107               DB 80H,90H,88H,83H
+0261 C6A1868E        108               DB 0C6H,0A1H,86H,8EH
+                     109     
+                     110     
+                     111               END                  
+A51 MACRO ASSEMBLER  EXPERIMENT_41BYZFY                                                   04/20/2019 21:14:46 PAGE     3
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+ACC. . . . . . . .  D ADDR   00E0H   A   
+B. . . . . . . . .  D ADDR   00F0H   A   
+DELAY_SHORT. . . .  C ADDR   024CH   A   
+DEL_SHORT. . . . .  C ADDR   024EH   A   
+DISPLAY. . . . . .  C ADDR   021BH   A   
+DONE . . . . . . .  C ADDR   0216H   A   
+DSEG1. . . . . . .  C ADDR   0255H   A   
+EA . . . . . . . .  B ADDR   00A8H.7 A   
+EX0. . . . . . . .  B ADDR   00A8H.0 A   
+IT0. . . . . . . .  B ADDR   0088H.0 A   
+LOOP . . . . . . .  C ADDR   011AH   A   
+MAIN . . . . . . .  C ADDR   0100H   A   
+NEXT . . . . . . .  C ADDR   0211H   A   
+PINT0. . . . . . .  C ADDR   0200H   A   
+PSW. . . . . . . .  D ADDR   00D0H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)
