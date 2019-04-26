@@ -160,27 +160,41 @@
       <FileType>2</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>17</ColumnNumber>
+      <ColumnNumber>11288147</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>1</TopLine>
-      <CurrentLine>14</CurrentLine>
+      <TopLine>58803688</TopLine>
+      <CurrentLine>24060440</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\Experiment_3.asm</PathWithFileName>
       <FilenameWithoutPath>Experiment_3.asm</FilenameWithoutPath>
     </File>
     <File>
       <GroupNumber>1</GroupNumber>
-      <FileNumber>0</FileNumber>
+      <FileNumber>2</FileNumber>
       <FileType>2</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>13</ColumnNumber>
+      <ColumnNumber>11288143</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>1</TopLine>
-      <CurrentLine>10</CurrentLine>
+      <TopLine>117</TopLine>
+      <CurrentLine>148</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\Experiment3\experiment_3withComments.asm</PathWithFileName>
       <FilenameWithoutPath>experiment_3withComments.asm</FilenameWithoutPath>
+    </File>
+    <File>
+      <GroupNumber>1</GroupNumber>
+      <FileNumber>3</FileNumber>
+      <FileType>2</FileType>
+      <tvExp>0</tvExp>
+      <Focus>0</Focus>
+      <ColumnNumber>11288147</ColumnNumber>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <TopLine>58803688</TopLine>
+      <CurrentLine>24060440</CurrentLine>
+      <bDave2>0</bDave2>
+      <PathWithFileName>.\Experiment_41byZFY.asm</PathWithFileName>
+      <FilenameWithoutPath>Experiment_41byZFY.asm</FilenameWithoutPath>
     </File>
     <File>
       <GroupNumber>1</GroupNumber>
@@ -188,20 +202,48 @@
       <FileType>2</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>75</ColumnNumber>
+      <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>27</TopLine>
-      <CurrentLine>27</CurrentLine>
+      <TopLine>0</TopLine>
+      <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\Experiment_41byZFY.asm</PathWithFileName>
-      <FilenameWithoutPath>Experiment_41byZFY.asm</FilenameWithoutPath>
+      <PathWithFileName>.\Experiment_42.asm</PathWithFileName>
+      <FilenameWithoutPath>Experiment_42.asm</FilenameWithoutPath>
+    </File>
+    <File>
+      <GroupNumber>1</GroupNumber>
+      <FileNumber>0</FileNumber>
+      <FileType>2</FileType>
+      <tvExp>0</tvExp>
+      <Focus>0</Focus>
+      <ColumnNumber>8</ColumnNumber>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <TopLine>1</TopLine>
+      <CurrentLine>1</CurrentLine>
+      <bDave2>0</bDave2>
+      <PathWithFileName>.\044.ASM</PathWithFileName>
+      <FilenameWithoutPath>044.ASM</FilenameWithoutPath>
+    </File>
+    <File>
+      <GroupNumber>1</GroupNumber>
+      <FileNumber>0</FileNumber>
+      <FileType>2</FileType>
+      <tvExp>0</tvExp>
+      <Focus>0</Focus>
+      <ColumnNumber>64</ColumnNumber>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <TopLine>43</TopLine>
+      <CurrentLine>43</CurrentLine>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\Experiment5\shuiwen.asm</PathWithFileName>
+      <FilenameWithoutPath>shuiwen.asm</FilenameWithoutPath>
     </File>
   </Group>
 
   <AlienFiles>
-    <PathWithFilename>D:\必修课\大三下\机电系统\ExperimentOn8051\Experiment4\Experiment_4.asm</PathWithFilename>
+    <PathWithFilename>D:\必修课\大三下\机电系统\ExperimentOn8051\Experiment5\Experiment_5hw.asm</PathWithFilename>
     <TopLine>1</TopLine>
-    <CurrentLine>3</CurrentLine>
+    <CurrentLine>11</CurrentLine>
     <Constant>0</Constant>
     <WindowPosition>
       <length>0</length>
@@ -225,9 +267,9 @@
   </AlienFiles>
 
   <WinLayout>
-    <sActiveDebugView></sActiveDebugView>
-    <iActiveDebugViewLocation>0</iActiveDebugViewLocation>
-    <sActiveBuildView></sActiveBuildView>
+    <sActiveDebugView>Default</sActiveDebugView>
+    <iActiveDebugViewLocation>1</iActiveDebugViewLocation>
+    <sActiveBuildView>Build</sActiveBuildView>
     <iActiveBuildViewLocation>0</iActiveBuildViewLocation>
     <View>
       <ViewName>Default</ViewName>
@@ -1561,35 +1603,41 @@
   </WinLayout>
 
   <MDIGroups>
-    <Orientation>1</Orientation>
+    <Orientation>3</Orientation>
     <ActiveMDIGroup>0</ActiveMDIGroup>
     <MDIGroup>
-      <Size>100</Size>
-      <ActiveTab>0</ActiveTab>
+      <Size>50</Size>
+      <ActiveTab>2</ActiveTab>
       <Documents>
         <Doc>
-          <Name>.\Experiment_41byZFY.asm</Name>
-          <ColumnNumber>75</ColumnNumber>
-          <TopLine>27</TopLine>
-          <CurrentLine>27</CurrentLine>
+          <Name>.\044.ASM</Name>
+          <ColumnNumber>8</ColumnNumber>
+          <TopLine>1</TopLine>
+          <CurrentLine>1</CurrentLine>
         </Doc>
         <Doc>
-          <Name>D:\必修课\大三下\机电系统\ExperimentOn8051\Experiment4\Experiment_4.asm</Name>
-          <ColumnNumber>16</ColumnNumber>
-          <TopLine>1</TopLine>
-          <CurrentLine>3</CurrentLine>
+          <Name>..\Experiment5\shuiwen.asm</Name>
+          <ColumnNumber>64</ColumnNumber>
+          <TopLine>43</TopLine>
+          <CurrentLine>43</CurrentLine>
         </Doc>
         <Doc>
           <Name>..\Experiment3\experiment_3withComments.asm</Name>
-          <ColumnNumber>13</ColumnNumber>
-          <TopLine>1</TopLine>
-          <CurrentLine>10</CurrentLine>
+          <ColumnNumber>11288143</ColumnNumber>
+          <TopLine>117</TopLine>
+          <CurrentLine>148</CurrentLine>
         </Doc>
+      </Documents>
+    </MDIGroup>
+    <MDIGroup>
+      <Size>50</Size>
+      <ActiveTab>0</ActiveTab>
+      <Documents>
         <Doc>
-          <Name>.\Experiment_3.asm</Name>
-          <ColumnNumber>17</ColumnNumber>
+          <Name>D:\必修课\大三下\机电系统\ExperimentOn8051\Experiment5\Experiment_5hw.asm</Name>
+          <ColumnNumber>41</ColumnNumber>
           <TopLine>1</TopLine>
-          <CurrentLine>14</CurrentLine>
+          <CurrentLine>11</CurrentLine>
         </Doc>
       </Documents>
     </MDIGroup>

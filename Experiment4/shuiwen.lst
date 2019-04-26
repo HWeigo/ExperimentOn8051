@@ -1,0 +1,259 @@
+A51 MACRO ASSEMBLER  SHUIWEN                                                              04/26/2019 10:19:46 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.01
+OBJECT MODULE PLACED IN .\shuiwen.obj
+ASSEMBLER INVOKED BY: D:\Microcontrollers\Keil\C51\BIN\A51.EXE ..\Experiment5\shuiwen.asm SET(SMALL) DEBUG PRINT(.\shuiw
+                      en.lst) OBJECT(.\shuiwen.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1       ORG 0000H
+0000 020060            2       LJMP BEGIN
+0013                   3       ORG 0013H          ;Íâ²¿ÖÐ¶Ï1µÄÈë¿Ú
+0013 020157            4       LJMP INTT1     ;µ÷µ½Íâ²¿ÖÐ¶Ï
+0060                   5       ORG 0060H     
+  003A                 6       PROTECTION EQU 3AH
+                       7       
+0060                   8     BEGIN:
+0060 D2AF              9       SETB EA           ;×ÜÖÐ¶Ï¿ª¹Ø´ò¿ª
+0062 D2AA             10       SETB EX1          ;Íâ²¿ÖÐ¶Ï1ÔÊÐíÆôÓÃ
+0064 D28A             11       SETB IT1          ;¿ªÆôÍâÖÐ¶Ï1,¼ì²é¶Ë¿ÚÊÇ·ñÓÐÖÐ¶ÏÐÅºÅ
+0066 758170           12       MOV SP,#70H   ;¶ÑÕ»Ö¸ÕëÉèÖÃ
+0069 90DFFA           13       MOV DPTR,#0DFFAH ;Æô¶¯AD×ª»»£¬Ö®ºóµÈ´ADÄ£¿é×ª»»½áÊø£¬·¢³öÖÐ¶ÏÇëÇó
+006C F0               14       MOVX @DPTR,A     ;Æô¶¯AD×ª»»£¬Ö®ºóµÈ´ADÄ£¿é×ª»»½áÊø£¬·¢³öÖÐ¶ÏÇëÇó
+006D C296             15       CLR P1.6
+006F                  16     MAIN: 
+006F 12012D           17       LCALL BCD         ;ÏÔÊ¾Éè¶¨Öµ£¬Í¬Ê±½«Éè¶¨Öµ×ªÎªÊ®Áù½øÖÆ´æÔÚR2ÖÐ
+0072 120145           18       LCALL TEMTRANS    ;²É¼¯Ê¾ÝµÄÊ®Áù½øÖÆ×ª»»
+0075 120166           19       LCALL DISPLAY     ;ÏÔÊ¾³ÌÐò
+0078 EF               20       MOV A,R7          ;R7Îª²â¶¨Öµ
+0079 8A50             21       MOV 50H,R2        ;R2ÎªÉè¶¨Öµ
+007B B55002           22       CJNE A,50H,X1     ;Á½Õß±È½Ï£¬Ö÷ÒªÎªÁËÅÐ¶Ï´óÐ¡¡£Êµ¼ÊÎÂ¶È´óÔòCYÎª0
+007E B296             23       CPL P1.6
+0080 30D76D           24     X1: JNB CY,STOP     ;CYÎª0£¬¼´Êµ¼ÊÎÂ¶È´ó£¬Ìøµ½STOPÍ£Ö¹³ÌÐò
+0083                  25     H1:                 ;CYÎª1£¬Î´µ½Ô¤ÉèÖµ£¬ÅÐ¶ÏÎÂ²î·¶Î§
+0083 EA               26       MOV A,R2          
+0084 C3               27       CLR C
+0085 940A             28       SUBB A,#0AH         ;½«Ô¤ÉèÖµ¼õÐ¡10¶È
+0087 F555             29       MOV 55H,A  
+0089 EF               30       MOV A,R7
+008A B55500           31       CJNE A,55H,X2     ;ÔÙ´Î±È½Ï
+008D 30D713           32     X2: JNB CY,H2       ;Êµ¼ÊÎÂ¶È´ó£¬Ìøµ½X3ÔÙ´Î±È½Ï
+0090 0200EC           33        LJMP HEAT        ;Êµ¼ÊÎÂ¶ÈÐ¡£¬Ìøµ½HEAT³ÖÐø¼ÓÈÈ³ÌÐò
+0093                  34     X3:                 
+0093 EA               35       MOV A,R2          
+0094 C3               36       CLR C
+0095 9405             37       SUBB A,#05H         ;½«Ô¤ÉèÖµ¼õÐ¡5¶È
+0097 F556             38       MOV 56H,A  
+0099 EF               39       MOV A,R7
+009A B55600           40       CJNE A,56H,X4     ;ÔÙ´Î±È½Ï
+009D 30D726           41     X4: JNB CY,H3       ;Êµ¼ÊÎÂ¶È´ó£¬Ìøµ½H3³¤ÉÁË¸¼ÓÈÈ³ÌÐò
+00A0 0200EC           42        LJMP HEAT        ;Êµ¼ÊÎÂ¶ÈÐ¡£¬Ìøµ½H2¶ÌÉÁË¸¼ÓÈÈ³ÌÐò
+                      43                                                                                     
+00A3                  44     H2:
+00A3 7C0F             45       MOV R4,#0FH
+00A5 EC               46       MOV A,R4
+00A6 907FFC           47       MOV DPTR,#7FFCH        
+00A9 F0               48       MOVX @DPTR,A       ;¼ÓÈÈÖ¸ÁîËÍÈë¼ÌµçÆ÷µØÖ·
+00AA 120110           49       LCALL DELAY1S
+00AD 120110           50       LCALL DELAY1S       ;¼ÓÈÈ2s
+00B0 7CF0             51       MOV R4,#0F0H
+00B2 EC               52       MOV A,R4
+00B3 907FFC           53       MOV DPTR,#7FFCH        
+00B6 F0               54       MOVX @DPTR,A        ;Í£Ö¹Ö¸ÁîËÍÈë¼ÌµçÆ÷µØÖ·
+00B7 120110           55       LCALL DELAY1S
+00BA 120110           56       LCALL DELAY1S
+00BD 120110           57       LCALL DELAY1S
+A51 MACRO ASSEMBLER  SHUIWEN                                                              04/26/2019 10:19:46 PAGE     2
+
+00C0 120110           58       LCALL DELAY1S        ;Í£Ö¹4s
+00C3 02006F           59       LJMP MAIN           
+                      60     
+00C6                  61     H3:
+00C6 7C0F             62       MOV R4,#0FH
+00C8 EC               63       MOV A,R4
+00C9 907FFC           64       MOV DPTR,#7FFCH        
+00CC F0               65       MOVX @DPTR,A       ;¼ÓÈÈÖ¸ÁîËÍÈë¼ÌµçÆ÷µØÖ·
+00CD 120110           66       LCALL DELAY1S       ;¼ÓÈÈ1s
+00D0 7CF0             67       MOV R4,#0F0H
+00D2 EC               68       MOV A,R4
+00D3 907FFC           69       MOV DPTR,#7FFCH        
+00D6 F0               70       MOVX @DPTR,A        ;Í£Ö¹Ö¸ÁîËÍÈë¼ÌµçÆ÷µØÖ·
+00D7 120110           71       LCALL DELAY1S
+00DA 120110           72       LCALL DELAY1S
+00DD 120110           73       LCALL DELAY1S
+00E0 120110           74       LCALL DELAY1S
+00E3 120110           75       LCALL DELAY1S
+00E6 120110           76       LCALL DELAY1S        ;Í£Ö¹5s
+00E9 02006F           77       LJMP MAIN           
+                      78     
+00EC                  79     HEAT:                       ;ÎÂ²î10¶ÈÒÔÉÏ£¬³ÖÐø¼ÓÈÈ
+00EC 7C0F             80       MOV R4,#0FH           ;¼ÓÈÈÃüÁî
+00EE 01F2             81       AJMP KAIGUAN          ;Ìøµ½¼ÌµçÆ÷¿ª¹Ø
+00F0                  82     STOP:
+00F0 7CF0             83       MOV R4,#0F0H          ;Í£Ö¹ÃüÁî
+00F2                  84     KAIGUAN:
+00F2 EC               85       MOV A,R4
+00F3 907FFC           86       MOV DPTR,#7FFCH        ;ÃüÁîËÍÈë¼ÌµçÆ÷
+00F6 F0               87       MOVX @DPTR,A           ;ÃüÁîËÍÈë¼ÌµçÆ÷
+00F7 120110           88       LCALL DELAY1S          ;µ÷ÓÃÑÓÊ±×Ó³ÌÐò
+00FA 02006F           89       LJMP MAIN
+                      90     
+00FD                  91     DELAY1_10S:
+00FD 758910           92             MOV TMOD,#10H   ;Éè¶¨¶¨Ê±Æ÷1Î»·½Ê½Ò»
+0100 758D3C           93             MOV TH1,#3CH
+0103 758BB0           94             MOV TL1,#0B0H;
+0106 D28E             95             SETB TR1
+0108 108F02           96     L2:     JBC TF1,L1
+010B 80FB             97             SJMP L2                 ;¼Ù¶¨Ê±ÖÓÆµÂÊÎª6Mhz
+010D                  98     L1:     
+010D C28E             99             CLR TR1
+010F 22              100             RET
+                     101     
+0110                 102     DELAY1S:
+0110 780A            103             MOV R0,#10;
+0112 758910          104             MOV TMOD,#10H   ;Éè¶¨¶¨Ê±Æ÷1Î»·½Ê½Ò»
+0115 758D3C          105             MOV TH1,#3CH
+0118 758BB0          106             MOV TL1,#0B0H;
+011B D28E            107             SETB TR1
+011D 108F02          108     L4:     JBC TF1,L3
+0120 80FB            109             SJMP L4
+0122                 110     L3:     
+0122 758D3C          111             MOV TH1,#3CH
+0125 758BB0          112             MOV TL1,#0B0H
+0128 D8F3            113             DJNZ    R0,L4
+012A C28E            114             CLR TR1
+012C 22              115             RET
+012D                 116     BCD:
+012D C297            117       CLR P1.7                 ;Ñ¡Ôñ²¦ÂëÅÌÇ°Á½Î»
+012F 90BFFF          118       MOV DPTR,#0BFFFH
+0132 E0              119       MOVX A,@DPTR     ;¶Á³ö²¦ÂëÅÌ8Î»¶þ½øÖÆÊ
+0133 F4              120       CPL A                    ;È¡·´
+0134 75F010          121       MOV B,#10H       ;·ÖÀëÇ°ËÄÎ»ºÍºóËÄÎ»
+0137 84              122       DIV AB                   ;·ÖÀëÇ°ËÄÎ»ºÍºóËÄÎ»
+0138 85F032          123       MOV 32H,B                ;Éè¶¨ÎÂ¶ÈÖµµÃ¸öÎ»´æÈëÊÂë¹Ü3
+A51 MACRO ASSEMBLER  SHUIWEN                                                              04/26/2019 10:19:46 PAGE     3
+
+013B F533            124       MOV 33H,A                ;Éè¶¨ÎÂ¶ÈÖµµÃÊ®Î»´æÈëÊÂë¹Ü4
+013D 75F00A          125       MOV B,#0AH       ;¸³ÓèBÎª10
+0140 A4              126       MUL AB                   ;Ê®Î»Ê³Ë10µÃµ½ÆäÊ®Áù½øÖÆ±í´ï
+0141 2532            127       ADD A,32H                ;¼ÓÉÏ¸öÎ»Ê
+0143 FA              128       MOV R2,A                 ;Éè¶¨Öµ³É¼´×ª»»ÎªÊ®Áù½øÖÆ
+0144 22              129     RET
+                     130     
+0145                 131     TEMTRANS:                ;²É¼¯µ½ÎÂ¶ÈÖµµÄÊ®½øÖÆ×ª»»
+0145 EB              132       MOV A,R3        
+0146 75F064          133       MOV B,#100     ;²É¼¯µ½µÄ8Î»¶þ½øÖÆÊÏÈ³ËÒÔ100£¬ÔÙ³ÒÔ256¾ÍÊÇ²É¼¯µ½µÄË®ÎÂ
+0149 A4              134       MUL AB         
+014A AFF0            135       MOV R7,B           ;³Ë»µÄ¸ß°ËÎ»»á½øÈëB£¬µÍ°ËÎ»½øÈëA£¬Õâ¸öÊ³ÒÔ256£¬Ïàµ±ÓÚÕâ¸öÊÍùÓÒ±ßÒÆ¶¯°Ë
+                             Î»£¬ËùÒÔB¾ÍÊÇË®µÄÎÂ¶ÈÖµ
+014C EF              136       MOV A,R7           ;·ÖÀëË®ÎÂµÄÇ°ºóËÄÎ»£¨ÏÖÔÚµÄË®ÎÂÊÇÊ®Áù½øÖÆµÄ£¬ºóËÄÎ»µÄÖµ²»»á³¬¹15£©
+014D 75F00A          137       MOV B,#0AH  
+0150 84              138       DIV AB           
+0151 F531            139       MOV 31H,A              ;Ê®Î»·Åµ½ÊÂë¹Ü2
+0153 85F030          140       MOV 30H,B              ;¸öÎ»·Åµ½ÊÂë¹Ü1
+0156 22              141       RET                    ;×Ó³ÌÐò·µ»Ø
+                     142     
+                     143     
+                     144     
+0157                 145     INTT1:
+0157 C2AA            146       CLR EX1
+0159 F53A            147       MOV PROTECTION,A  ;±£´æÔ­À´µÄÀÛ¼ÓÆ÷
+015B 90DFFA          148       MOV DPTR,#0DFFAH      ;¶Á×ª»»Öµ
+015E E0              149       MOVX A,@DPTR          ;¶Á×ª»»Öµ
+015F FB              150       MOV R3,A                      ; ¼Ä´æ×ª»»Öµ
+0160 F0              151       MOVX @DPTR,A          ;Æô¶¯AD×ª»»
+0161 E53A            152       MOV A,PROTECTION      ;»Ö¸´
+0163 D2AA            153       SETB EX1
+0165 32              154       RETI                          ;·µ»Ø¶Ïµã
+                     155     
+0166                 156     DISPLAY:           ;ÏÔÊ¾º¯Ê
+0166 E530            157       MOV A,30H
+0168 540F            158       ANL A,#0FH
+016A 900197          159       MOV DPTR,#DSEG1
+016D 93              160       MOVC A,@A+DPTR
+016E 907FF8          161       MOV DPTR,#7FF8H
+0171 F0              162       MOVX @DPTR,A
+                     163     
+0172 E531            164       MOV A,31H
+0174 540F            165       ANL A,#0FH
+0176 900197          166       MOV DPTR,#DSEG1
+0179 93              167       MOVC A,@A+DPTR
+017A 907FF9          168       MOV DPTR,#7FF9H
+017D F0              169       MOVX @DPTR,A
+                     170     
+017E E532            171       MOV A,32H
+0180 540F            172       ANL A,#0FH
+0182 900197          173       MOV DPTR,#DSEG1
+0185 93              174       MOVC A,@A+DPTR
+0186 907FFA          175       MOV DPTR,#7FFAH
+0189 F0              176       MOVX @DPTR,A
+                     177     
+018A E533            178       MOV A,33H
+018C 540F            179       ANL A,#0FH
+018E 900197          180       MOV DPTR,#DSEG1
+0191 93              181       MOVC A,@A+DPTR
+0192 907FFB          182       MOV DPTR,#7FFBH
+0195 F0              183       MOVX @DPTR,A
+0196 22              184       RET
+                     185     
+0197                 186     DSEG1:                            ;¶ÎÂë±í
+0197 C0F9A4B0        187     DB 0C0H,0F9H,0A4H,0B0H
+019B 999282F8        188     DB 99H,92H,82H,0F8H
+A51 MACRO ASSEMBLER  SHUIWEN                                                              04/26/2019 10:19:46 PAGE     4
+
+019F 80908883        189     DB 80H,90H,88H,83H
+01A3 C6A1868E        190     DB 0C6H,0A1H,86H,8EH
+                     191       
+                     192       END
+A51 MACRO ASSEMBLER  SHUIWEN                                                              04/26/2019 10:19:46 PAGE     5
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+B. . . . . . . . .  D ADDR   00F0H   A   
+BCD. . . . . . . .  C ADDR   012DH   A   
+BEGIN. . . . . . .  C ADDR   0060H   A   
+CY . . . . . . . .  B ADDR   00D0H.7 A   
+DELAY1S. . . . . .  C ADDR   0110H   A   
+DELAY1_10S . . . .  C ADDR   00FDH   A   
+DISPLAY. . . . . .  C ADDR   0166H   A   
+DSEG1. . . . . . .  C ADDR   0197H   A   
+EA . . . . . . . .  B ADDR   00A8H.7 A   
+EX1. . . . . . . .  B ADDR   00A8H.2 A   
+H1 . . . . . . . .  C ADDR   0083H   A   
+H2 . . . . . . . .  C ADDR   00A3H   A   
+H3 . . . . . . . .  C ADDR   00C6H   A   
+HEAT . . . . . . .  C ADDR   00ECH   A   
+INTT1. . . . . . .  C ADDR   0157H   A   
+IT1. . . . . . . .  B ADDR   0088H.2 A   
+KAIGUAN. . . . . .  C ADDR   00F2H   A   
+L1 . . . . . . . .  C ADDR   010DH   A   
+L2 . . . . . . . .  C ADDR   0108H   A   
+L3 . . . . . . . .  C ADDR   0122H   A   
+L4 . . . . . . . .  C ADDR   011DH   A   
+MAIN . . . . . . .  C ADDR   006FH   A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+PROTECTION . . . .  N NUMB   003AH   A   
+SP . . . . . . . .  D ADDR   0081H   A   
+STOP . . . . . . .  C ADDR   00F0H   A   
+TEMTRANS . . . . .  C ADDR   0145H   A   
+TF1. . . . . . . .  B ADDR   0088H.7 A   
+TH1. . . . . . . .  D ADDR   008DH   A   
+TL1. . . . . . . .  D ADDR   008BH   A   
+TMOD . . . . . . .  D ADDR   0089H   A   
+TR1. . . . . . . .  B ADDR   0088H.6 A   
+X1 . . . . . . . .  C ADDR   0080H   A   
+X2 . . . . . . . .  C ADDR   008DH   A   
+X3 . . . . . . . .  C ADDR   0093H   A   
+X4 . . . . . . . .  C ADDR   009DH   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

@@ -347,19 +347,34 @@
           <GroupName>Source Group 1</GroupName>
           <Files>
             <File>
-              <FileName>Experiment_3.asm</FileName>
+              <FileName>Experiment_41byZFY.asm</FileName>
               <FileType>2</FileType>
-              <FilePath>.\Experiment_3.asm</FilePath>
+              <FilePath>.\Experiment_41byZFY.asm</FilePath>
+            </File>
+            <File>
+              <FileName>Experiment_42.asm</FileName>
+              <FileType>2</FileType>
+              <FilePath>.\Experiment_42.asm</FilePath>
+            </File>
+            <File>
+              <FileName>044.ASM</FileName>
+              <FileType>2</FileType>
+              <FilePath>.\044.ASM</FilePath>
+            </File>
+            <File>
+              <FileName>shuiwen.asm</FileName>
+              <FileType>2</FileType>
+              <FilePath>..\Experiment5\shuiwen.asm</FilePath>
+            </File>
+            <File>
+              <FileName>Experiment_5hw.asm</FileName>
+              <FileType>2</FileType>
+              <FilePath>..\Experiment5\Experiment_5hw.asm</FilePath>
             </File>
             <File>
               <FileName>experiment_3withComments.asm</FileName>
               <FileType>2</FileType>
               <FilePath>..\Experiment3\experiment_3withComments.asm</FilePath>
-            </File>
-            <File>
-              <FileName>Experiment_41byZFY.asm</FileName>
-              <FileType>2</FileType>
-              <FilePath>.\Experiment_41byZFY.asm</FilePath>
             </File>
           </Files>
         </Group>

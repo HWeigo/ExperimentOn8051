@@ -361,21 +361,6 @@
               <FileType>2</FileType>
               <FilePath>.\Experiment_41byZFY.asm</FilePath>
             </File>
-            <File>
-              <FileName>Experiment_42.asm</FileName>
-              <FileType>2</FileType>
-              <FilePath>.\Experiment_42.asm</FilePath>
-            </File>
-            <File>
-              <FileName>044.ASM</FileName>
-              <FileType>2</FileType>
-              <FilePath>.\044.ASM</FilePath>
-            </File>
-            <File>
-              <FileName>shuiwen.asm</FileName>
-              <FileType>2</FileType>
-              <FilePath>..\Experiment5\shuiwen.asm</FilePath>
-            </File>
           </Files>
         </Group>
       </Groups>
