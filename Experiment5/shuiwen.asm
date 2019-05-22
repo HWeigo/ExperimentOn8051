@@ -113,6 +113,7 @@ L3:
 	DJNZ	R0,L4
 	CLR TR1
 	RET
+
 BCD:
   CLR P1.7		   ;选择拨码盘前两位
   MOV DPTR,#0BFFFH

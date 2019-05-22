@@ -1,0 +1,168 @@
+A51 MACRO ASSEMBLER  EXPERIMENT_6_3                                                       05/21/2019 21:56:19 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.01
+OBJECT MODULE PLACED IN Experiment_6.3.OBJ
+ASSEMBLER INVOKED BY: D:\Microcontrollers\Keil\C51\BIN\A51.EXE Experiment_6.3.asm SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+  0030                 1                         TIME_FLAG EQU 30H
+  0031                 2                             TCOUNT EQU 31H
+  0032                 3                             WORD_CNT EQU 32H
+  0033                 4                             NUM1 EQU 33H
+  0034                 5                             NUM2 EQU 34H
+  0035                 6                             NUM3 EQU 35H
+  0036                 7                             NUM4 EQU 36H
+  0037                 8                             NUM_FLAG EQU 37H
+  0038                 9                             NUM_TOTAL EQU 38H
+                      10     
+0000                  11                             ORG 0000H
+0000 0160             12                             AJMP START
+000B                  13                             ORG 000BH
+000B 01A8             14                             AJMP TIMINT
+0023                  15                             ORG 0023H
+0023 01BC             16                             AJMP UARTINT
+0060                  17                             ORG 0060H
+                      18     
+0060 75815F           19     START:          MOV SP,#5FH
+0063 758921           20                             MOV TMOD,#21H   ;∂® ±∆˜1ƒ£ Ω2π§◊˜£¨”√”⁄øÿ÷∆≤®Ãÿ¬ ; ∂® ±∆˜0”√”⁄3s∂® 
+                             ±
+0066 758700           21                             MOV PCON,#00H   ;≤ª∑÷∆µ
+0069 758DFD           22                             MOV TH1,#0FDH   ;≤®Ãÿ¬ 9600
+006C 758BFD           23                             MOV TL1,#0FDH   ;≤®Ãÿ¬ 9600
+006F 759850           24                             MOV SCON, #50H ;¥Æø⁄π§◊˜∑Ω Ω1
+0072 758C4C           25                             MOV TH0,#4CH   ;∂® ±50ms
+0075 758A00           26                             MOV TL0,#00H   ;∂® ±50ms
+                      27                             
+0078 D29C             28                             SETB REN                ;‘ –ÌΩ” ‹
+007A D28E             29                             SETB TR1                ;T1ø™ ºπ§◊˜
+007C D2BC             30                             SETB PS                 ;…Ë÷√¥Æø⁄”≈œ»º∂Œ™∏ﬂ
+007E D2AC             31                             SETB ES                 ; πƒ‹¥Æø⁄÷–∂œ
+0080 D2A9             32                             SETB ET0                ; πƒ‹∂® ±∆˜0÷–∂œ
+0082 D2AF             33                             SETB EA                 ; πƒ‹À˘”–÷–∂œ
+                      34     
+0084 753200           35                             MOV WORD_CNT,#0H
+0087 753700           36                             MOV NUM_FLAG,#0H
+008A 7F04             37                             MOV R7,#04H
+008C 7833             38                             MOV R0,#33H
+                      39     
+                      40     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+008E                  41     LOOP:           
+008E E537             42                             MOV A,NUM_FLAG
+0090 B40113           43                             CJNE A,#1H,SKIP                   ;»Ù ◊÷≤ª◊„4∏ˆ‘Ú—≠ª∑
+                      44     
+0093 7400             45                             MOV A,#0H
+0095 2533             46                             ADD A,NUM1
+0097 2534             47                             ADD A,NUM2
+0099 2535             48                             ADD A,NUM3
+009B 2536             49                             ADD A,NUM4                                ;¿€º”
+009D F538             50                             MOV NUM_TOTAL,A 
+                      51     
+009F                  52     SEND:           
+009F F599             53                             MOV SBUF,A                                 ;∑¢ÀÕACC÷–ƒ⁄»›
+00A1 3099FD           54                             JNB TI,$                                   ;µ»¥∑¢ÀÕÕÍ±œ£®TI=1)
+00A4 C299             55                             CLR TI                                     ;TI«Â¡„
+                      56                              
+00A6 80E6             57     SKIP:           SJMP LOOP
+A51 MACRO ASSEMBLER  EXPERIMENT_6_3                                                       05/21/2019 21:56:19 PAGE     2
+
+                      58     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                      59     ;∂® ±∆˜÷–∂œ
+00A8 758C4C           60     TIMINT:         MOV TH0,#4CH            ;÷ÿ÷√≥ı÷µ
+00AB 758A00           61                             MOV TL0,#0H
+                      62     
+00AE 0531             63                             INC TCOUNT
+00B0 E531             64                             MOV A,TCOUNT
+00B2 B43C06           65                             CJNE A,#60,NEXT_TINT    ;50msº∆ Œ™¥Ô60¥Œ£¨º¥3s£¨Ã¯≥ˆ
+00B5 753100           66                             MOV TCOUNT,#0H                  ;÷ÿ÷√50msº∆ ∆˜TCOUNT
+00B8 753001           67                             MOV TIME_FLAG,#1H               ;÷√3s∂® ±flagŒ™1
+                      68     
+00BB                  69     NEXT_TINT:
+00BB 32               70                             RETI
+                      71     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                      72     ;¥Æø⁄÷–∂œ
+00BC                  73     UARTINT:        
+00BC C0D0             74                             PUSH PSW
+00BE C0E0             75                             PUSH ACC                           ;œ÷≥°±£ª§
+00C0 C2AC             76                             CLR ES                             ;πÿ±’¥Æø⁄÷–∂œ
+                      77                                                               
+                      78     
+00C2 E599             79                             MOV A,SBUF                         ;Ω´¥Æø⁄∂¡»°¥Ê÷¡ºƒ¥Ê∆˜A
+00C4 F6               80                             MOV @R0,A                          ;Ω´A¥Ê÷¡R0÷∏œÚµÿ÷∑£®R0->33H,34H,
+                             35H,36H)
+00C5 08               81                             INC R0                             ;R0º”“ª
+00C6 DF07             82                             DJNZ R7,EXIT               ;≈–∂œ «∑Ò”–4∏ˆ  ‰»Î£¨√ª”–‘ÚÕÀ≥ˆ
+00C8 7833             83                             MOV R0,#33H                        ;÷ÿ÷√R0≥ı÷µ
+00CA 7F04             84                             MOV R7,#04H                        ;÷ÿ÷√R7º∆ 
+00CC 753701           85                             MOV NUM_FLAG,#1H           ;Ω´±Í÷æŒª÷√1
+                      86     
+00CF                  87     EXIT:
+00CF C298             88                             CLR RI
+00D1 D2AC             89                             SETB ES
+00D3 D0E0             90                             POP ACC
+00D5 D0D0             91                             POP PSW
+00D7 32               92                             RETI    
+                      93     
+00D8 49204C6F         94     DSEG1:    DB 49H,20H,4CH,6FH     ; I Lo
+00DC 76652043         95                       DB 76H,65H,20H,43H     ; ve C
+00E0 68596E61         96                       DB 68H,59H,6EH,61H     ; hina
+00E4 21               97                       DB 21H                                 ; !
+                      98     
+00E5 30313233         99     DSEG2:    DB 30H,31H,32H,33H
+00E9 34353637        100                       DB 34H,35H,36H,37H     ; 0-9
+00ED 3839            101                       DB 38H,39H
+                     102     
+                     103                             END
+A51 MACRO ASSEMBLER  EXPERIMENT_6_3                                                       05/21/2019 21:56:19 PAGE     3
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+ACC. . . . . . . .  D ADDR   00E0H   A   
+DSEG1. . . . . . .  C ADDR   00D8H   A   
+DSEG2. . . . . . .  C ADDR   00E5H   A   
+EA . . . . . . . .  B ADDR   00A8H.7 A   
+ES . . . . . . . .  B ADDR   00A8H.4 A   
+ET0. . . . . . . .  B ADDR   00A8H.1 A   
+EXIT . . . . . . .  C ADDR   00CFH   A   
+LOOP . . . . . . .  C ADDR   008EH   A   
+NEXT_TINT. . . . .  C ADDR   00BBH   A   
+NUM1 . . . . . . .  N NUMB   0033H   A   
+NUM2 . . . . . . .  N NUMB   0034H   A   
+NUM3 . . . . . . .  N NUMB   0035H   A   
+NUM4 . . . . . . .  N NUMB   0036H   A   
+NUM_FLAG . . . . .  N NUMB   0037H   A   
+NUM_TOTAL. . . . .  N NUMB   0038H   A   
+PCON . . . . . . .  D ADDR   0087H   A   
+PS . . . . . . . .  B ADDR   00B8H.4 A   
+PSW. . . . . . . .  D ADDR   00D0H   A   
+REN. . . . . . . .  B ADDR   0098H.4 A   
+RI . . . . . . . .  B ADDR   0098H.0 A   
+SBUF . . . . . . .  D ADDR   0099H   A   
+SCON . . . . . . .  D ADDR   0098H   A   
+SEND . . . . . . .  C ADDR   009FH   A   
+SKIP . . . . . . .  C ADDR   00A6H   A   
+SP . . . . . . . .  D ADDR   0081H   A   
+START. . . . . . .  C ADDR   0060H   A   
+TCOUNT . . . . . .  N NUMB   0031H   A   
+TH0. . . . . . . .  D ADDR   008CH   A   
+TH1. . . . . . . .  D ADDR   008DH   A   
+TI . . . . . . . .  B ADDR   0098H.1 A   
+TIME_FLAG. . . . .  N NUMB   0030H   A   
+TIMINT . . . . . .  C ADDR   00A8H   A   
+TL0. . . . . . . .  D ADDR   008AH   A   
+TL1. . . . . . . .  D ADDR   008BH   A   
+TMOD . . . . . . .  D ADDR   0089H   A   
+TR1. . . . . . . .  B ADDR   0088H.6 A   
+UARTINT. . . . . .  C ADDR   00BCH   A   
+WORD_CNT . . . . .  N NUMB   0032H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)
