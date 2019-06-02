@@ -1,103 +1,178 @@
-  		    TIME_FLAG EQU 30H
-			TCOUNT EQU 31H
-			WORD_CNT EQU 32H
-			NUM1 EQU 33H
-			NUM2 EQU 34H
-			NUM3 EQU 35H
-			NUM4 EQU 36H
-			NUM_FLAG EQU 37H
-			NUM_TOTAL EQU 38H
-
+			MINUTE_HIGH EQU 30H
+			MINUTE_LOW EQU 31H
+			SECOND_HIGH EQU 32H
+			SECOND_LOW EQU 33H 
+			LETTER1 EQU 34H
+			LETTER2 EQU 35H
+			LETTER3 EQU 36H
+			LETTER4 EQU 37H
+			LETTERCNT EQU 38H
 			ORG 0000H
-			AJMP START
-			ORG 000BH
-			AJMP TIMINT
-			ORG 0023H
-			AJMP UARTINT
+			LJMP BEGIN
 			ORG 0060H
 
-START:	 	MOV SP,#5FH
-			MOV TMOD,#21H	;定时器1模式2工作，用于控制波特率; 定时器0用于3s定时
-			MOV PCON,#00H 	;不分频
-			MOV TH1,#0FDH	;波特率9600
-			MOV TL1,#0FDH	;波特率9600
-			MOV SCON, #50H ;串口工作方式1
-			MOV TH0,#4CH   ;定时50ms
-   			MOV TL0,#00H   ;定时50ms
-			
-			SETB REN	 	;允许接受
-			SETB TR1		;T1开始工作
-			SETB PS 		;设置串口优先级为高
-			SETB ES			;使能串口中断
-			SETB ET0		;使能定时器0中断
-			SETB EA			;使能所有中断
+BEGIN:
+			MOV TMOD,#20H			;定时器1模式2工作
+			MOV TH1,#0FDH			;波特率9600
+			MOV TL1,#0FDH			;波特率9600
+			SETB TR1				;T1开始工作
+			MOV SCON,#50H
 
-			MOV WORD_CNT,#0H
-			MOV NUM_FLAG,#0H
-			MOV R7,#04H
-			MOV R0,#33H
+MAIN:
+			MOV MINUTE_HIGH,#00H
+			MOV MINUTE_LOW,#00H
+			MOV SECOND_HIGH,#00H
+			MOV SECOND_LOW,#00H
+			MOV LETTER1,#0H
+			MOV LETTER2,#0H
+			MOV LETTER3,#0H
+			MOV LETTER4,#0H
+			MOV LETTERCNT,#34H
+NOTRECEIVE:
+			JBC RI,L1				;判断是否有串口数据输入
+			LJMP NOTRECEIVE
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-LOOP:		
-			MOV A,NUM_FLAG
-			CJNE A,#1H,SKIP			  ;若数字不足4个则循环
+RX:
+			MOV A,SBUF				 ;接受串口数据
+			MOV @LETTERCNT,A		 ;储存字节
+			ANL A,#0FH				 ;隔离高位
+			MOV MINUTE_HIGH,A		 ;将低位放至寄存器
+			MOV A,R1
+			ANL A,#0F0H				 ;隔离低位
+			SWAP A					 ;交换高低位
+			MOV MINUTE_LOW,A		 ;将低位放至寄存器
+			ADD LETTERCNT			 ;字节计数加一
+			MOV A,LETTERCNT
+			CJNE A,#39H,RX			 ;若未到4位字节则继续读取
+			MOV LETTERCNT,#34H
+			LCALL DISPLAY
 
-			MOV A,#0H
-			ADD A,NUM1
-			ADD A,NUM2
-			ADD A,NUM3
-			ADD A,NUM4				  ;累加
-			MOV NUM_TOTAL,A 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-SEND:		
+ADD1:
+			MOV A,LETTER1
+			MOV B,LETTER2
+			CLR CY
+			ADD A,B
+			DA A				   ;字节十进制相加
+			MOV R5,A			   ;存储累加数
+			MOV R6,#00H
+			JNC ADD2			   ;若无进位则跳转
+
+			INC R6				   ;若有进位则百位加一
+
+ADD2:
+			MOV A,R5
+			MOV B,R3
+			CLR CY
+			ADD A,B
+			DA A				   ;字节十进制相加
+			MOV R5,A
+			JNC ADD3
+
+			INC R6
+
+ADD3:
+			MOV A,R5
+			MOV B,R4
+			CLR CY
+			ADD A,B
+			DA A				   ;字节十进制相加
+			MOV R5,A
+			JNC TOTAL
+
+			INC R6
+			MOV A,R6
+			MOV SECOND_HIGH,A
+
+TOTAL:
+			MOV A,R5
+			ANL A,#0FH
+			MOV MINUTE_HIGH,A
+			MOV A,R5
+			ANL A,#0F0H
+			SWAP A
+			MOV MINUTE_LOW,A
+			LCALL DISPLAY
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;串口发送
+SEND:
+
+			MOV LETTERCNT,#39H
+			MOV A,LETTERCNT
 			MOV SBUF,A				   ;发送ACC中内容
-			JNB TI,$				   ;等待发送完毕（TI=1)
+WAIT:		JNB TI,WAIT
 			CLR TI					   ;TI清零
-			 
-SKIP:		SJMP LOOP
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;定时器中断
-TIMINT:		MOV TH0,#4CH	 	;重置初值
-			MOV TL0,#0H
+			INC LETTERCNT			   ;指向字节加一
+			MOV A,LETTERCNT
+			CJNE A,#H,SEND			   ;判断是否全部发送完毕，待修改
+			MOV LETTERCNT ,#34H		   ;发送完毕则重置WORD_CNT
+						
+			LJMP MAIN
 
-			INC TCOUNT
-			MOV A,TCOUNT
-			CJNE A,#60,NEXT_TINT	;50ms计数为达60次，即3s，跳出
-			MOV TCOUNT,#0H		 	;重置50ms计数器TCOUNT
-			MOV TIME_FLAG,#1H	 	;置3s定时flag为1
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;数码管显示
+DISPLAY:	;第一个数码管
+			MOV	DPTR,#DSEG3
+			MOV  A,MINUTE_HIGH
+			MOVC	A,@A+DPTR
+			MOV	DPTR,#7FF0H			     
+			MOVX	@DPTR,A
+			
+			ACALL DELAY_SHORT
 
-NEXT_TINT:
-			RETI
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;串口中断
-UARTINT:	
-			PUSH PSW
-			PUSH ACC			   ;现场保护
-			CLR ES				   ;关闭串口中断
-							  
+			;第二个数码管
+			MOV	DPTR,#DSEG3
+			MOV A,MINUTE_LOW
+			MOVC	A,@A+DPTR
+			MOV	DPTR,#7FF1H			     
+			MOVX	@DPTR,A
 
-			MOV A,SBUF			   ;将串口读取存至寄存器A
-			MOV @R0,A			   ;将A存至R0指向地址（R0->33H,34H,35H,36H)
-			INC R0				   ;R0加一
-			DJNZ R7,EXIT		   ;判断是否有4个数输入，没有则退出
-			MOV R0,#33H			   ;重置R0初值
-			MOV R7,#04H			   ;重置R7计数
-			MOV NUM_FLAG,#1H	   ;将标志位置1
+			ACALL DELAY_SHORT
 
-EXIT:
-			CLR RI
-			SETB ES
-			POP ACC
-			POP PSW
-			RETI	
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+			;第三个数码管
+			MOV	DPTR,#DSEG3
+			MOV A,SECOND_HIGH
+			MOVC	A,@A+DPTR
+			MOV	DPTR,#7FF2H			     
+			MOVX	@DPTR,A
+
+			ACALL DELAY_SHORT
+
+			;第四个数码管
+			MOV	DPTR,#DSEG3
+			MOV A,SECOND_LOW
+			MOVC	A,@A+DPTR
+			MOV	DPTR,#7FF3H			     
+			MOVX	@DPTR,A
+
+			ACALL DELAY_SHORT
+
+			RET					  
+
+DELAY_SHORT:                   
+           MOV R7,#10
+DEL_SHORT: MOV R6,#250
+           DJNZ R6,$
+           DJNZ R7,DEL_SHORT
+           RET
+
+DELAY_LONG:                   
+           MOV R7,#100
+DEL_LONG:  MOV R6,#250
+           DJNZ R6,$
+           DJNZ R7,DEL_LONG
+           RET
+
+DSEG3:    DB 0C0H,0F9H,0A4H,0B0H                        
+          DB 99H,92H,82H,0F8H
+          DB 80H,90H,88H,83H
+          DB 0C6H,0A1H,86H,8EH
+
 DSEG1:    DB 49H,20H,4CH,6FH	 ; I Lo
 		  DB 76H,65H,20H,43H     ; ve C
-		  DB 68H,59H,6EH,61H	 ; hina
+		  DB 68H,105,6EH,61H	 ; hina
 		  DB 21H				 ; !
-
-DSEG2:    DB 30H,31H,32H,33H
-		  DB 34H,35H,36H,37H     ; 0-9
-		  DB 38H,39H
 
 			END

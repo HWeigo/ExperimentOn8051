@@ -347,9 +347,14 @@
           <GroupName>Source Group 1</GroupName>
           <Files>
             <File>
-              <FileName>Experiment_6.0.asm</FileName>
+              <FileName>Experiment_6.3 hw.asm</FileName>
               <FileType>2</FileType>
-              <FilePath>.\Experiment_6.0.asm</FilePath>
+              <FilePath>.\Experiment_6.3 hw.asm</FilePath>
+            </File>
+            <File>
+              <FileName>Experiment_6.3.asm</FileName>
+              <FileType>2</FileType>
+              <FilePath>.\Experiment_6.3.asm</FilePath>
             </File>
           </Files>
         </Group>
